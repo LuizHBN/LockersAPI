@@ -1,5 +1,6 @@
 package com.inertia.lockersapi.domain.locker;
 
+import com.inertia.lockersapi.api.controller.dto.request.NewLockerDTO;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
@@ -27,4 +28,8 @@ public class Locker {
 
     private boolean isFree;
 
+    public Locker(NewLockerDTO lockerDTO) {
+        this.address = lockerDTO.address();
+        this.isFree = lockerDTO.isFree();
+    }
 }
