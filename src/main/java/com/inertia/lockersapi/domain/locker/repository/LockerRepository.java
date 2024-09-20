@@ -1,4 +1,4 @@
-package com.inertia.lockersapi.repositories;
+package com.inertia.lockersapi.domain.locker.repository;
 
 import com.inertia.lockersapi.domain.locker.Locker;
 import org.springframework.data.jpa.repository.JpaRepository;

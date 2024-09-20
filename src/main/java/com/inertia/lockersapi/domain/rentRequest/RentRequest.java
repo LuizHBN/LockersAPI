@@ -1,4 +1,4 @@
-package com.inertia.lockersapi.domain.locker;
+package com.inertia.lockersapi.domain.rentRequest;
 
 import com.inertia.lockersapi.api.controller.dto.request.NewRentRequestDTO;
 import jakarta.persistence.*;
