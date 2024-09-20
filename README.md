@@ -1,6 +1,6 @@
 Back End - Locker API Inertia
 
-Projeto realizado em Spring Boot + BD Postgres, que caso conectado a um banco de dados existente, criará as tabelas automaticamente (Pasta: db.migration).
+Projeto realizado em Spring Boot + BD MySQL, que caso conectado a um banco de dados existente, criará as tabelas automaticamente.
 
 PASSO A PASSO
 
