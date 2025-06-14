@@ -1,4 +1,4 @@
-package com.inertia.lockersapi.api.controller.dto.request;
+package com.inertia.lockersapi.api.controller.dto.request.rentRequest;
 
 import jakarta.validation.constraints.NotNull;
 

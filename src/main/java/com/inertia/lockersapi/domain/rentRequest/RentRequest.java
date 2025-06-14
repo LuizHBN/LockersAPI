@@ -1,6 +1,6 @@
 package com.inertia.lockersapi.domain.rentRequest;
 
-import com.inertia.lockersapi.api.controller.dto.request.NewRentRequestDTO;
+import com.inertia.lockersapi.api.controller.dto.request.rentRequest.NewRentRequestDTO;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;

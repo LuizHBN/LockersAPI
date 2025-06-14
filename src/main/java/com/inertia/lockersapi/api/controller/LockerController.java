@@ -1,8 +1,8 @@
 package com.inertia.lockersapi.api.controller;
 
 import com.inertia.lockersapi.api.controller.dto.request.NewLockerCheckOutDTO;
-import com.inertia.lockersapi.api.controller.dto.request.NewLockerDTO;
-import com.inertia.lockersapi.api.controller.dto.request.NewRentRequestDTO;
+import com.inertia.lockersapi.api.controller.dto.request.locker.NewLockerDTO;
+import com.inertia.lockersapi.api.controller.dto.request.rentRequest.NewRentRequestDTO;
 import com.inertia.lockersapi.domain.locker.service.LockerService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;

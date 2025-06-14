@@ -1,18 +1,18 @@
 package com.inertia.lockersapi.domain.locker.service;
 
 import com.inertia.lockersapi.api.controller.dto.request.NewLockerCheckOutDTO;
-import com.inertia.lockersapi.api.controller.dto.request.NewLockerDTO;
-import com.inertia.lockersapi.api.controller.dto.request.NewRentRequestDTO;
+import com.inertia.lockersapi.api.controller.dto.request.locker.NewLockerDTO;
+import com.inertia.lockersapi.api.controller.dto.request.rentRequest.NewRentRequestDTO;
 import com.inertia.lockersapi.domain.locker.Locker;
 import com.inertia.lockersapi.domain.locker.repository.LockerRepository;
 import com.inertia.lockersapi.domain.rentRequest.RentRequest;
 import com.inertia.lockersapi.domain.rentRequest.repository.RentRequestRepository;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.GetMapping;
 
 import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 
 @Service
 public class LockerService {
