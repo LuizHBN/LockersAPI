@@ -1,4 +1,4 @@
-package com.inertia.lockersapi.api.controller.dto.request;
+package com.inertia.lockersapi.api.controller.dto.request.rentRequest;
 
 import jakarta.validation.constraints.NotNull;
 
@@ -10,6 +10,8 @@ public record NewRentRequestDTO(
         UUID lockerId,
         @NotNull
         Integer userId,
+        @NotNull
+        UUID transactionId,
         @NotNull
         Date rentStartDate,
         @NotNull

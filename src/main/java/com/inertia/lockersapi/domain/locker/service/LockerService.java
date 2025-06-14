@@ -1,18 +1,18 @@
 package com.inertia.lockersapi.domain.locker.service;
 
 import com.inertia.lockersapi.api.controller.dto.request.NewLockerCheckOutDTO;
-import com.inertia.lockersapi.api.controller.dto.request.NewLockerDTO;
-import com.inertia.lockersapi.api.controller.dto.request.NewRentRequestDTO;
+import com.inertia.lockersapi.api.controller.dto.request.locker.NewLockerDTO;
+import com.inertia.lockersapi.api.controller.dto.request.rentRequest.NewRentRequestDTO;
 import com.inertia.lockersapi.domain.locker.Locker;
 import com.inertia.lockersapi.domain.locker.repository.LockerRepository;
 import com.inertia.lockersapi.domain.rentRequest.RentRequest;
 import com.inertia.lockersapi.domain.rentRequest.repository.RentRequestRepository;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.GetMapping;
 
 import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 
 @Service
 public class LockerService {
@@ -48,7 +48,7 @@ public class LockerService {
         RentRequest rentRequest = rentRequestRepository.findById(checkOutDTO.rentRequestId())
                 .orElseThrow(() -> new RuntimeException("Locação não encontrada!"));
 
-        Locker locker = lockerRepository.findById(rentRequest.getLocker_id())
+        Locker locker = lockerRepository.findById(rentRequest.getLocker().getId())
                 .orElseThrow(() -> new RuntimeException("Locker não encontrado!"));
 
         locker.setFree(true);
@@ -69,6 +69,12 @@ public class LockerService {
     public ResponseEntity<?> findAllRentRequests(){
         List<RentRequest> rentRequests = rentRequestRepository.findAll();
         return ResponseEntity.ok(rentRequests);
+    }
+
+    public ResponseEntity<?> findLockerByFacilityId(String facilityId){
+        UUID facilityUUID = UUID.fromString(facilityId);
+        List<Locker> lockers = lockerRepository.findByFacilityId(facilityUUID);
+        return ResponseEntity.ok(lockers);
     }
 
 

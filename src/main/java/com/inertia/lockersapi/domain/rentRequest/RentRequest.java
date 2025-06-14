@@ -1,6 +1,8 @@
 package com.inertia.lockersapi.domain.rentRequest;
 
-import com.inertia.lockersapi.api.controller.dto.request.NewRentRequestDTO;
+import com.inertia.lockersapi.api.controller.dto.request.rentRequest.NewRentRequestDTO;
+import com.inertia.lockersapi.domain.locker.Locker;
+import com.inertia.lockersapi.domain.transaction.Transaction;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -8,6 +10,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.Date;
+import java.util.Random;
 import java.util.UUID;
 
 @Table(name = "rent_locker")
@@ -22,8 +25,13 @@ public class RentRequest {
     @GeneratedValue
     private UUID id;
 
-    @Column(name = "lockerId", nullable = false)
-    private UUID locker_id;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "locker_id")
+    private Locker locker;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "transaction_id")
+    private Transaction transaction;
 
     @Column(name = "userId", nullable = false)
     private Integer user_id;
@@ -34,10 +42,15 @@ public class RentRequest {
     @Column(name = "rent_finish_date")
     private Date rentFinishDate;
 
+    @Column
+    private UUID openingKey;
+
     public RentRequest(NewRentRequestDTO requestDTO){
-        this.locker_id = requestDTO.lockerId();
+        this.transaction = new Transaction();
+        this.transaction.setId(requestDTO.transactionId());
         this.user_id = requestDTO.userId();
         this.rentStartDate = requestDTO.rentStartDate();
         this.rentFinishDate = requestDTO.rentFinishDate();
+        this.openingKey = UUID.randomUUID();
     }
 }

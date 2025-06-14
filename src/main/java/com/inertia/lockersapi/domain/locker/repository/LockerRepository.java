@@ -3,7 +3,9 @@ package com.inertia.lockersapi.domain.locker.repository;
 import com.inertia.lockersapi.domain.locker.Locker;
 import org.springframework.data.jpa.repository.JpaRepository;
 
+import java.util.List;
 import java.util.UUID;
 
 public interface LockerRepository extends JpaRepository<Locker, UUID> {
+    List<Locker> findByFacilityId(UUID facilityId);
 }
