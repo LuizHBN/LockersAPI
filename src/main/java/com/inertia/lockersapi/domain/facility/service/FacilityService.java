@@ -1,11 +1,8 @@
-package com.inertia.lockersapi.domain.facility.Service;
+package com.inertia.lockersapi.domain.facility.service;
 
 import com.inertia.lockersapi.api.controller.dto.request.facility.NewFacilityDTO;
-import com.inertia.lockersapi.api.controller.dto.request.locker.NewLockerDTO;
 import com.inertia.lockersapi.domain.facility.Facility;
 import com.inertia.lockersapi.domain.facility.repository.FacilityRepository;
-import com.inertia.lockersapi.domain.locker.Locker;
-import com.inertia.lockersapi.domain.locker.repository.LockerRepository;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;

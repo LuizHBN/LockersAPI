@@ -1,10 +1,8 @@
 package com.inertia.lockersapi.api.controller;
 
 import com.inertia.lockersapi.api.controller.dto.request.facility.NewFacilityDTO;
-import com.inertia.lockersapi.api.controller.dto.request.locker.NewLockerDTO;
-import com.inertia.lockersapi.domain.facility.Service.FacilityService;
+import com.inertia.lockersapi.domain.facility.service.FacilityService;
 import jakarta.validation.Valid;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
