@@ -8,6 +8,8 @@ import com.inertia.lockersapi.domain.locker.Locker;
 import com.inertia.lockersapi.domain.locker.repository.LockerRepository;
 import com.inertia.lockersapi.domain.rentRequest.RentRequest;
 import com.inertia.lockersapi.domain.rentRequest.repository.RentRequestRepository;
+import com.inertia.lockersapi.domain.transaction.Transaction;
+import com.inertia.lockersapi.domain.transaction.repository.TransactionRepository;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
@@ -19,10 +21,12 @@ import java.util.UUID;
 public class RentRequestService {
     private final LockerRepository lockerRepository;
     private final RentRequestRepository rentRequestRepository;
+    private final TransactionRepository transactionRepository;
 
-    public RentRequestService(LockerRepository lockerRepository, RentRequestRepository rentRequestRepository){
+    public RentRequestService(LockerRepository lockerRepository, RentRequestRepository rentRequestRepository,  TransactionRepository transactionRepository) {
         this.lockerRepository = lockerRepository;
         this.rentRequestRepository = rentRequestRepository;
+        this.transactionRepository = transactionRepository;
     }
 
     public ResponseEntity<?> rentLocker(NewRentRequestDTO rentRequestDTO){
@@ -33,8 +37,8 @@ public class RentRequestService {
             RentRequest rentRequest = new RentRequest(rentRequestDTO);
             locker.setFree(false);
             lockerRepository.save(locker);
-            rentRequestRepository.save(rentRequest);
-            return ResponseEntity.ok(rentRequest);
+            RentRequest savedRentRequest = rentRequestRepository.save(rentRequest);
+            return ResponseEntity.ok(savedRentRequest);
         }
 
         return ResponseEntity.badRequest().body("Locker ocupado!");
@@ -67,7 +71,6 @@ public class RentRequestService {
 
     public ResponseEntity<?> findRentRequestByUserId(UUID userId){
         List<RentRequest> rentRequests = rentRequestRepository.findByUserId(userId);
-
 
         return ResponseEntity.ok(toRentRequestDTO(rentRequests));
     }

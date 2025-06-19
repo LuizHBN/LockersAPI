@@ -28,6 +28,7 @@ public class Locker {
     private boolean isFree;
     private double height;
     private double width;
+    private String alias;
 
     public Locker(NewLockerDTO lockerDTO) {
         this.isFree = lockerDTO.isFree();
@@ -35,6 +36,8 @@ public class Locker {
         this.width = lockerDTO.width();
         this.facility = new Facility();
         this.facility.setId(lockerDTO.facilityID());
+        this.alias = lockerDTO.alias();
+
     }
 
 

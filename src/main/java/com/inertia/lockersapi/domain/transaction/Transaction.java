@@ -2,6 +2,7 @@ package com.inertia.lockersapi.domain.transaction;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.inertia.lockersapi.api.controller.dto.request.transaction.NewTransactionDTO;
+import com.inertia.lockersapi.domain.rentRequest.RentRequest;
 import com.inertia.lockersapi.domain.user.User;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -36,4 +37,10 @@ public class Transaction {
         this.amount = newTransactionDTO.amount();
         this.type = newTransactionDTO.type();
     }
+
+    /*public Transaction(RentRequest rentRequest) {
+        this.user = rentRequest.getUser();
+        this.validated = true;
+        amount =
+    }*/
 }

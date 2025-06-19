@@ -4,6 +4,7 @@ import com.inertia.lockersapi.api.controller.dto.request.transaction.NewTransact
 import com.inertia.lockersapi.api.controller.dto.response.ReadRentRequestDTO;
 import com.inertia.lockersapi.api.controller.dto.response.ReadTransactionDTO;
 import com.inertia.lockersapi.domain.rentRequest.RentRequest;
+import com.inertia.lockersapi.domain.rentRequest.service.RentRequestService;
 import com.inertia.lockersapi.domain.transaction.Transaction;
 import com.inertia.lockersapi.domain.transaction.repository.TransactionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +17,7 @@ import java.util.List;
 public class TransactionService {
     @Autowired
     private TransactionRepository transactionRepository;
+
     public TransactionService(TransactionRepository transactionRepository) {
         this.transactionRepository = transactionRepository;
     }

@@ -14,6 +14,8 @@ public record NewLockerDTO(
         @NotNull
         double height,
         @NotNull
-        double width
+        double width,
+        @NotNull
+        String alias
 ) {
 }
