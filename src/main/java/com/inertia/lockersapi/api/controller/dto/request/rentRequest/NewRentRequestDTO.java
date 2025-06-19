@@ -13,6 +13,5 @@ public record NewRentRequestDTO(
         @NotNull
         Date rentStartDate,
         @NotNull
-        Date rentFinishDate,
-        UUID openingKey) {
+        Date rentFinishDate) {
 }

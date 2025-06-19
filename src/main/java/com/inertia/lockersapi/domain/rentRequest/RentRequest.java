@@ -46,9 +46,11 @@ public class RentRequest {
 
     public RentRequest(NewRentRequestDTO requestDTO){
         this.user = new User();
+        this.locker = new Locker();
+        this.locker.setId(requestDTO.lockerId());
         this.user.setId(requestDTO.userId());
         this.rentStartDate = requestDTO.rentStartDate();
         this.rentFinishDate = requestDTO.rentFinishDate();
-        this.openingKey = requestDTO.openingKey();
+        this.openingKey = UUID.randomUUID();
     }
 }
