@@ -54,6 +54,6 @@ public class RentRequest {
         this.user.setId(requestDTO.userId());
         this.rentStartDate = requestDTO.rentStartDate();
         this.rentFinishDate = requestDTO.rentFinishDate();
-        this.openingKey = UUID.randomUUID();
+        this.openingKey = requestDTO.openingKey();
     }
 }
