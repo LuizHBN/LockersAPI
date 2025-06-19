@@ -38,8 +38,8 @@ public class LockerController {
         return lockerService.findAllLockers();
     }
 
-    @GetMapping("/facility")
-    public ResponseEntity<?> getAllLockersByFacilityID(@RequestParam String facilityID) {
+    @GetMapping("/facility/id/{facilityID}")
+    public ResponseEntity<?> getAllLockersByFacilityID(@PathVariable String facilityID) {
         return lockerService.findLockerByFacilityId(facilityID);
     }
 
