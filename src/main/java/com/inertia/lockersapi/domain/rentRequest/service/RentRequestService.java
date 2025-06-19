@@ -75,6 +75,10 @@ public class RentRequestService {
         return ResponseEntity.ok(toRentRequestDTO(rentRequests));
     }
 
+    public ResponseEntity<?> findRentRequestById(UUID rentRequestId){
+        return  ResponseEntity.ok(rentRequestRepository.findById(rentRequestId));
+    }
+
 
     private static List<ReadRentRequestDTO> toRentRequestDTO(List<RentRequest> rentRequests){
        return rentRequests.stream()

@@ -43,6 +43,10 @@ public class RentRequestController {
     public ResponseEntity<?> getRentRequestByUserId(@PathVariable UUID userId){
         return rentRequestService.findRentRequestByUserId(userId);
     }
+    @GetMapping("/{id}")
+    public ResponseEntity<?> getRentRequestById(@PathVariable UUID rentRequestId){
+        return rentRequestService.findRentRequestByUserId(rentRequestId);
+    }
 
 
 
