@@ -11,8 +11,6 @@ public record NewRentRequestDTO(
         @NotNull
         UUID userId,
         @NotNull
-        UUID transactionId,
-        @NotNull
         Date rentStartDate,
         @NotNull
         Date rentFinishDate,

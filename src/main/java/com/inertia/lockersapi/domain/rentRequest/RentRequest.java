@@ -30,9 +30,6 @@ public class RentRequest {
     @JoinColumn(name = "locker_id")
     private Locker locker;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "transaction_id")
-    private Transaction transaction;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "userId", nullable = false)
@@ -48,8 +45,6 @@ public class RentRequest {
     private UUID openingKey;
 
     public RentRequest(NewRentRequestDTO requestDTO){
-        this.transaction = new Transaction();
-        this.transaction.setId(requestDTO.transactionId());
         this.user = new User();
         this.user.setId(requestDTO.userId());
         this.rentStartDate = requestDTO.rentStartDate();

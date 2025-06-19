@@ -27,6 +27,9 @@ public class Transaction {
     private User user;
     @Enumerated(EnumType.STRING)
     private TransactionType type;
+    @JoinColumn
+    @ManyToOne(fetch = FetchType.LAZY)
+    private RentRequest rentRequest;
     private boolean validated;
     private double amount;
 
