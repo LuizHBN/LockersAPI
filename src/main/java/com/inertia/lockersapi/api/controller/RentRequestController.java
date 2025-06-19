@@ -1,7 +1,6 @@
 package com.inertia.lockersapi.api.controller;
 
 import com.inertia.lockersapi.api.controller.dto.request.NewLockerCheckOutDTO;
-import com.inertia.lockersapi.api.controller.dto.request.locker.NewLockerDTO;
 import com.inertia.lockersapi.api.controller.dto.request.rentRequest.NewRentRequestDTO;
 import com.inertia.lockersapi.domain.locker.service.LockerService;
 import jakarta.validation.Valid;
@@ -11,37 +10,33 @@ import org.springframework.web.bind.annotation.*;
 
 
 @RestController
-@RequestMapping("/api/locker")
-public class LockerController {
+@RequestMapping("/api/rent")
+public class RentRequestController {
 
 
     private final LockerService lockerService;
 
     @Autowired
-    public LockerController(LockerService lockerService){
+    public RentRequestController(LockerService lockerService){
         this.lockerService = lockerService;
     }
 
 
-    @PostMapping
-    public ResponseEntity<?> addLocker(@RequestBody @Valid NewLockerDTO lockerDTO) {
-        return lockerService.savelocker(lockerDTO);
-    }
-
-    @PostMapping("/rent")
+    @PostMapping()
     public ResponseEntity<?> rentLocker(@RequestBody @Valid NewRentRequestDTO rentRequestDTO) {
         return lockerService.rentLocker(rentRequestDTO);
     }
 
-    @GetMapping
-    public ResponseEntity<?> getAllLockers(){
-        return lockerService.findAllLockers();
+    @PostMapping("/checkout")
+    public ResponseEntity<?> lockerCheckOut(@RequestBody @Valid NewLockerCheckOutDTO checkOutDTO) {
+        return lockerService.finishRentProcess(checkOutDTO);
     }
 
-    @GetMapping("/facility")
-    public ResponseEntity<?> getAllLockersByFacilityID(@RequestParam String facilityID) {
-        return lockerService.findLockerByFacilityId(facilityID);
+    @GetMapping()
+    public ResponseEntity<?> getAllRentRequests(){
+        return lockerService.findAllRentRequests();
     }
+
 
 
 }

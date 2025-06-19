@@ -4,14 +4,19 @@ import com.inertia.lockersapi.domain.transaction.TransactionType;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import jakarta.persistence.Id;
+import jakarta.validation.constraints.NotNull;
 
 import java.util.UUID;
 
 public record NewTransactionDTO(
-        UUID id,
+
+        @NotNull
         UUID userId,
+        @NotNull
         TransactionType type,
+        @NotNull
         boolean validated,
+        @NotNull
         double amount
 ) {
 }

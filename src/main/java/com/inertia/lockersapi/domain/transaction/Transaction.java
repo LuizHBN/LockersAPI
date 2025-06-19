@@ -1,12 +1,9 @@
 package com.inertia.lockersapi.domain.transaction;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.inertia.lockersapi.api.controller.dto.request.transaction.NewTransactionDTO;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
-import jakarta.persistence.UniqueConstraint;
-import jakarta.persistence.Enumerated;
-import jakarta.persistence.EnumType;
+import com.inertia.lockersapi.domain.user.User;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -22,15 +19,20 @@ import java.util.UUID;
 public class Transaction {
 
     @Id
+    @GeneratedValue
     private UUID id;
-    private UUID userId;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id")
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+    private User user;
     @Enumerated(EnumType.STRING)
     private TransactionType type;
     private boolean validated;
     private double amount;
 
     public Transaction(NewTransactionDTO newTransactionDTO) {
-        this.userId = newTransactionDTO.userId();
+        this.user = new User();
+        this.user.setId(newTransactionDTO.userId());
         this.validated = newTransactionDTO.validated();
         this.amount = newTransactionDTO.amount();
         this.type = newTransactionDTO.type();

@@ -9,7 +9,7 @@ public record NewRentRequestDTO(
         @NotNull
         UUID lockerId,
         @NotNull
-        Integer userId,
+        UUID userId,
         @NotNull
         UUID transactionId,
         @NotNull

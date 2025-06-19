@@ -3,6 +3,7 @@ package com.inertia.lockersapi.domain.rentRequest;
 import com.inertia.lockersapi.api.controller.dto.request.rentRequest.NewRentRequestDTO;
 import com.inertia.lockersapi.domain.locker.Locker;
 import com.inertia.lockersapi.domain.transaction.Transaction;
+import com.inertia.lockersapi.domain.user.User;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -33,8 +34,9 @@ public class RentRequest {
     @JoinColumn(name = "transaction_id")
     private Transaction transaction;
 
-    @Column(name = "userId", nullable = false)
-    private Integer user_id;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "userId", nullable = false)
+    private User user;
 
     @Column(name = "rent_start_date", nullable = false)
     private Date rentStartDate;
@@ -48,7 +50,8 @@ public class RentRequest {
     public RentRequest(NewRentRequestDTO requestDTO){
         this.transaction = new Transaction();
         this.transaction.setId(requestDTO.transactionId());
-        this.user_id = requestDTO.userId();
+        this.user = new User();
+        this.user.setId(requestDTO.userId());
         this.rentStartDate = requestDTO.rentStartDate();
         this.rentFinishDate = requestDTO.rentFinishDate();
         this.openingKey = UUID.randomUUID();

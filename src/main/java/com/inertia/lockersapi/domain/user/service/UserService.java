@@ -23,7 +23,7 @@ public class UserService {
     public ResponseEntity<?> saveUser(NewUserDTO userDTO) {
         User user = new User(userDTO);
         userRepository.save(user);
-        return ResponseEntity.ok(user);
+        return ResponseEntity.ok(userDTO);
     }
 
     public ResponseEntity<?> findAllUsers() {
