@@ -1,6 +1,9 @@
 package com.inertia.lockersapi.domain.transaction.service;
 
 import com.inertia.lockersapi.api.controller.dto.request.transaction.NewTransactionDTO;
+import com.inertia.lockersapi.api.controller.dto.response.ReadRentRequestDTO;
+import com.inertia.lockersapi.api.controller.dto.response.ReadTransactionDTO;
+import com.inertia.lockersapi.domain.rentRequest.RentRequest;
 import com.inertia.lockersapi.domain.transaction.Transaction;
 import com.inertia.lockersapi.domain.transaction.repository.TransactionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,12 +20,18 @@ public class TransactionService {
         this.transactionRepository = transactionRepository;
     }
 
-    public ResponseEntity<List<Transaction>> findAllTransactions() {
-        return ResponseEntity.ok(transactionRepository.findAll());
+    public ResponseEntity<?> findAllTransactions() {
+        return ResponseEntity.ok(toReadTransactionDTO(transactionRepository.findAll()));
     }
 
     public ResponseEntity<?> saveTransaction(NewTransactionDTO newTransactionDTO) {
        transactionRepository.saveAndFlush(new Transaction(newTransactionDTO));
        return ResponseEntity.ok(newTransactionDTO);
+    }
+
+    private static List<ReadTransactionDTO> toReadTransactionDTO(List<Transaction> transactions){
+        return transactions.stream()
+                .map(ReadTransactionDTO::new)
+                .toList();
     }
 }

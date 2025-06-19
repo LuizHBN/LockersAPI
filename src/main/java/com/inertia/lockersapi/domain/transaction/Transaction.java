@@ -23,7 +23,6 @@ public class Transaction {
     private UUID id;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
-    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     private User user;
     @Enumerated(EnumType.STRING)
     private TransactionType type;
