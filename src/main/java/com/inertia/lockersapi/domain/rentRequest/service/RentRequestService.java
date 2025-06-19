@@ -38,7 +38,7 @@ public class RentRequestService {
             locker.setFree(false);
             lockerRepository.save(locker);
             RentRequest savedRentRequest = rentRequestRepository.save(rentRequest);
-            return ResponseEntity.ok(savedRentRequest);
+            return ResponseEntity.ok( new ReadRentRequestDTO(savedRentRequest));
         }
 
         return ResponseEntity.badRequest().body("Locker ocupado!");
