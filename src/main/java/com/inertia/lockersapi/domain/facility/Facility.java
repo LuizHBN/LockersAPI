@@ -24,10 +24,14 @@ public class Facility {
     private UUID id;
     private String address;
     private String cep;
+    private String lat;
+    private String lon;
 
 
     public Facility(NewFacilityDTO facilityDTO) {
         this.address = facilityDTO.address();
         this.cep =  facilityDTO.cep();
+        this.lat = facilityDTO.lat();
+        this.lon = facilityDTO.lon();
     }
 }
