@@ -5,9 +5,10 @@ import com.inertia.lockersapi.domain.rentRequest.RentRequest;
 import java.util.Date;
 import java.util.UUID;
 
-public record ReadRentRequestDTO(UUID lockerId, UUID userId, Date rentStartDate, Date rentFinishDate, UUID openingKey) {
+public record ReadRentRequestDTO(UUID rentRequestId,UUID lockerId, UUID userId, Date rentStartDate, Date rentFinishDate, UUID openingKey) {
     public ReadRentRequestDTO(RentRequest rentRequest) {
         this(
+                rentRequest.getId(),
                 rentRequest.getLocker() != null ? rentRequest.getLocker().getId() : null,
                 rentRequest.getUser() != null ? rentRequest.getUser().getId() : null,
                 rentRequest.getRentStartDate(),

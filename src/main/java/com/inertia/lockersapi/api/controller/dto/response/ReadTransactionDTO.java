@@ -8,10 +8,10 @@ import jakarta.persistence.*;
 
 import java.util.UUID;
 
-public record ReadTransactionDTO(UUID id, UUID userId, TransactionType type, boolean validated, double amount) {
+public record ReadTransactionDTO(UUID id, UUID userId,UUID rentRequestId, TransactionType type, boolean validated, double amount) {
 
     public ReadTransactionDTO(Transaction transaction) {
-        this(transaction.getId(), transaction.getUser().getId(), transaction.getType(), transaction.isValidated(), transaction.getAmount());
+        this(transaction.getId(), transaction.getUser().getId(),transaction.getRentRequest().getId(), transaction.getType(), transaction.isValidated(), transaction.getAmount());
     }
 }
 

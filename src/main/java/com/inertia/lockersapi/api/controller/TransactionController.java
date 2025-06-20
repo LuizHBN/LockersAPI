@@ -27,8 +27,7 @@ public class TransactionController {
 
     @PostMapping
     public ResponseEntity<?> addTransaction(@RequestBody NewTransactionDTO newTransactionDTO){
-        this.transactionService.saveTransaction(newTransactionDTO);
-        return ResponseEntity.ok(newTransactionDTO);
+        return ResponseEntity.ok( this.transactionService.saveTransaction(newTransactionDTO));
     }
 
 

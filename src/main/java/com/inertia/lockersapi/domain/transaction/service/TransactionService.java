@@ -27,8 +27,10 @@ public class TransactionService {
     }
 
     public ResponseEntity<?> saveTransaction(NewTransactionDTO newTransactionDTO) {
-       transactionRepository.saveAndFlush(new Transaction(newTransactionDTO));
-       return ResponseEntity.ok(newTransactionDTO);
+       return ResponseEntity.ok(
+               new ReadTransactionDTO(
+                       transactionRepository.save(
+                               new Transaction(newTransactionDTO))));
     }
 
     private static List<ReadTransactionDTO> toReadTransactionDTO(List<Transaction> transactions){
