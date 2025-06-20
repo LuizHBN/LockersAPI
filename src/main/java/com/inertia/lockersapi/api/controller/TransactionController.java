@@ -22,12 +22,12 @@ public class TransactionController {
 
     @GetMapping
     public ResponseEntity<?> getTransactions(){
-        return ResponseEntity.ok(this.transactionService.findAllTransactions());
+        return this.transactionService.findAllTransactions();
     }
 
     @PostMapping
     public ResponseEntity<?> addTransaction(@RequestBody NewTransactionDTO newTransactionDTO){
-        return ResponseEntity.ok( this.transactionService.saveTransaction(newTransactionDTO));
+        return this.transactionService.saveTransaction(newTransactionDTO);
     }
 
 

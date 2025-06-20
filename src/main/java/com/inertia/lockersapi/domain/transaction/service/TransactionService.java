@@ -1,10 +1,7 @@
 package com.inertia.lockersapi.domain.transaction.service;
 
 import com.inertia.lockersapi.api.controller.dto.request.transaction.NewTransactionDTO;
-import com.inertia.lockersapi.api.controller.dto.response.ReadRentRequestDTO;
 import com.inertia.lockersapi.api.controller.dto.response.ReadTransactionDTO;
-import com.inertia.lockersapi.domain.rentRequest.RentRequest;
-import com.inertia.lockersapi.domain.rentRequest.service.RentRequestService;
 import com.inertia.lockersapi.domain.transaction.Transaction;
 import com.inertia.lockersapi.domain.transaction.repository.TransactionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
