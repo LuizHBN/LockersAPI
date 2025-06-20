@@ -1,6 +1,7 @@
 package com.inertia.lockersapi.domain.user.service;
 
 import com.inertia.lockersapi.api.controller.dto.request.user.NewUserDTO;
+import com.inertia.lockersapi.api.controller.dto.response.ReadUserDTO;
 import com.inertia.lockersapi.domain.user.User;
 import com.inertia.lockersapi.domain.user.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +24,7 @@ public class UserService {
     public ResponseEntity<?> saveUser(NewUserDTO userDTO) {
         User user = new User(userDTO);
         userRepository.save(user);
-        return ResponseEntity.ok(userDTO);
+        return ResponseEntity.ok(new ReadUserDTO(user));
     }
 
     public ResponseEntity<?> findAllUsers() {
