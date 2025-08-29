@@ -12,10 +12,8 @@ public record NewLockerDTO(
         @NotNull
         UUID facilityID,
         @NotNull
-        double height,
+        String alias,
         @NotNull
-        double width,
-        @NotNull
-        String alias
+        String lockerModel
 ) {
 }

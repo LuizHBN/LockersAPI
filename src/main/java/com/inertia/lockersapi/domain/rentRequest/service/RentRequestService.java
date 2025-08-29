@@ -29,6 +29,7 @@ public class RentRequestService {
         this.transactionRepository = transactionRepository;
     }
 
+
     public ResponseEntity<?> rentLocker(NewRentRequestDTO rentRequestDTO){
         Locker locker = lockerRepository.findById(rentRequestDTO.lockerId())
                 .orElseThrow(() -> new RuntimeException("Locker not found"));

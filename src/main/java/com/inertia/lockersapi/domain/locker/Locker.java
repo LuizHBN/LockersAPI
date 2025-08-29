@@ -26,14 +26,12 @@ public class Locker {
     @JoinColumn(name = "facility_id")
     private Facility facility;
     private boolean isFree;
-    private double height;
-    private double width;
     private String alias;
+    private String lockerModel;
 
     public Locker(NewLockerDTO lockerDTO) {
         this.isFree = lockerDTO.isFree();
-        this.height = lockerDTO.height();
-        this.width = lockerDTO.width();
+        this.lockerModel = lockerDTO.lockerModel();
         this.facility = new Facility();
         this.facility.setId(lockerDTO.facilityID());
         this.alias = lockerDTO.alias();

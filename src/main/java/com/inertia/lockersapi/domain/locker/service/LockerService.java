@@ -7,6 +7,7 @@ import com.inertia.lockersapi.domain.locker.Locker;
 import com.inertia.lockersapi.domain.locker.repository.LockerRepository;
 import com.inertia.lockersapi.domain.rentRequest.RentRequest;
 import com.inertia.lockersapi.domain.rentRequest.repository.RentRequestRepository;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
@@ -38,11 +39,19 @@ public class LockerService {
 
         return ResponseEntity.badRequest().body("Locker ocupado!");
     }
-    public ResponseEntity<?> savelocker(NewLockerDTO lockerDTO){
+
+    public ResponseEntity<?> saveLocker(NewLockerDTO lockerDTO) {
         Locker locker = new Locker(lockerDTO);
-        lockerRepository.save(locker);
-        return ResponseEntity.ok(lockerDTO);
+        try {
+            lockerRepository.save(locker);
+            return ResponseEntity.ok(locker);
+        } catch (DataIntegrityViolationException ex) {
+            return ResponseEntity
+                    .badRequest()
+                    .body("Erro ao salvar locker: " + ex.getMostSpecificCause().getMessage());
+        }
     }
+
 
     public ResponseEntity<?> finishRentProcess (NewLockerCheckOutDTO checkOutDTO){
         RentRequest rentRequest = rentRequestRepository.findById(checkOutDTO.rentRequestId())

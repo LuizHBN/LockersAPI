@@ -25,7 +25,7 @@ public class LockerController {
 
     @PostMapping
     public ResponseEntity<?> addLocker(@RequestBody @Valid NewLockerDTO lockerDTO) {
-        return lockerService.savelocker(lockerDTO);
+        return lockerService.saveLocker(lockerDTO);
     }
 
     @PostMapping("/rent")

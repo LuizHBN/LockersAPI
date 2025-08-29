@@ -31,13 +31,13 @@ public class Transaction {
     private boolean validated;
     private double amount;
 
+
     public Transaction(NewTransactionDTO newTransactionDTO) {
         this.user = new User();
         this.user.setId(newTransactionDTO.userId());
         this.rentRequest = new RentRequest();
         this.rentRequest.setId(newTransactionDTO.rentRequestId());
         this.validated = newTransactionDTO.validated();
-        this.amount = newTransactionDTO.amount();
         this.type = newTransactionDTO.type();
     }
 

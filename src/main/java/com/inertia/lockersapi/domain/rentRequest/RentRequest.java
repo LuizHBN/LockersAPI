@@ -53,4 +53,14 @@ public class RentRequest {
         this.rentFinishDate = requestDTO.rentFinishDate();
         this.openingKey = UUID.randomUUID();
     }
+
+    public int calculateRentTime() {
+        if (this.rentFinishDate == null || this.rentStartDate == null) {
+            throw new IllegalStateException("Start date or finish date cannot be null");
+        }
+
+        long diffInMillis = this.rentFinishDate.getTime() - this.rentStartDate.getTime();
+        double hours = (double) diffInMillis / (1000 * 60 * 60);
+        return (int) Math.ceil(hours);
+    }
 }

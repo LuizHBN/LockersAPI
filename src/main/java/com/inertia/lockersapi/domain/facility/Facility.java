@@ -1,6 +1,7 @@
 package com.inertia.lockersapi.domain.facility;
 
 import com.inertia.lockersapi.api.controller.dto.request.facility.NewFacilityDTO;
+import com.inertia.lockersapi.api.controller.dto.request.price.NewPriceDTO;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
@@ -34,4 +35,5 @@ public class Facility {
         this.lat = facilityDTO.lat();
         this.lon = facilityDTO.lon();
     }
+
 }

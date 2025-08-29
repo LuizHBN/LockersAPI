@@ -16,8 +16,7 @@ public record NewTransactionDTO(
         TransactionType type,
         @NotNull
         boolean validated,
-        @NotNull
-        double amount,
+
         @NotNull
         UUID rentRequestId
 ) {
