@@ -2,6 +2,7 @@ package com.inertia.lockersapi.domain.prices.service;
 
 import com.inertia.lockersapi.api.controller.dto.request.price.FinalPriceDTO;
 import com.inertia.lockersapi.api.controller.dto.request.price.NewPriceDTO;
+import com.inertia.lockersapi.api.controller.dto.response.ReadPriceDTO;
 import com.inertia.lockersapi.domain.facility.Facility;
 import com.inertia.lockersapi.domain.facility.repository.FacilityRepository;
 import com.inertia.lockersapi.domain.locker.LockerModel;
@@ -38,8 +39,12 @@ public class PriceService {
         return ResponseEntity.ok(priceDTO);
     }
 
-    public ResponseEntity<?> findAllPrices() {
-        List<Price> prices = priceRepository.findAll();
+    public ResponseEntity<List<ReadPriceDTO>> findAllPrices() {
+        List<ReadPriceDTO> prices = priceRepository.findAll()
+                .stream()
+                .map(ReadPriceDTO::new)
+                .toList();
+
         return ResponseEntity.ok(prices);
     }
 

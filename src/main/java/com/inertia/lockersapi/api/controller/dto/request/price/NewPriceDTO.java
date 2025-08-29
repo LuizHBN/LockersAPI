@@ -15,4 +15,5 @@ public record NewPriceDTO(
         @Min(0)
         double priceBase
 ) {
+
 }

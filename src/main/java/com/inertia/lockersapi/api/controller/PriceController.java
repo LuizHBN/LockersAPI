@@ -17,18 +17,26 @@ public class PriceController {
     public PriceController(PriceService priceService) {
         this.priceService = priceService;
     }
+
+
     @GetMapping
     public ResponseEntity<?> getPrice(){
         return ResponseEntity.ok(priceService.findAllPrices());
     }
+
+
     @GetMapping("/{id}")
     public ResponseEntity<?> getPriceById(@PathVariable UUID id){
         return ResponseEntity.ok(priceService.findPriceByUUID(id));
     }
+
+
     @PostMapping
     public ResponseEntity<?> addPrice(@RequestBody @Valid NewPriceDTO newPriceDTO){
         return ResponseEntity.ok(priceService.saveprice(newPriceDTO));
     }
+
+
 
     @GetMapping("/final")
     public ResponseEntity<?> getFinalPrice(@RequestParam UUID facilityId, @RequestParam String lockerModel, @RequestParam int requestedTime){
