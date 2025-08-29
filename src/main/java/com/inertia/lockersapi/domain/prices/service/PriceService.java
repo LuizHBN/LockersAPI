@@ -96,7 +96,7 @@ public class PriceService {
             return ResponseEntity.badRequest().body("Modelo de Locker inválido");
         }
     }
-    public  double calculateFinalPrice(UUID facilityId, int requestedTime, String lockerModelString) {
+    /*public  double calculateFinalPrice(UUID facilityId, int requestedTime, String lockerModelString) {
         LockerModel lockerModel = LockerModel.fromString(lockerModelString);
 
         Price price = priceRepository.findByLockerModel(lockerModel).orElseThrow(() -> new IllegalArgumentException("Modelo de Locker Inválido"));
@@ -107,6 +107,25 @@ public class PriceService {
         return price.getPriceBase() * multiplier.getPriceMultiplier() * requestedTime;
 
     }
+
+     */
+
+    public double calculateFinalPrice(UUID facilityId, int requestedTime, String lockerModelString) {
+        LockerModel lockerModel = LockerModel.fromString(lockerModelString);
+
+        // Busca o Price correto considerando a facility
+        Price price = priceRepository
+                .findByFacilityIdAndLockerModel(facilityId, lockerModel)
+                .orElseThrow(() -> new IllegalArgumentException("Modelo de Locker Inválido para essa facility"));
+
+        Facility facility = facilityRepository.findById(facilityId)
+                .orElseThrow(() -> new IllegalArgumentException("Facility inválido"));
+
+        Multiplier multiplier = multiplierRepository.getByFacility(facility);
+
+        return price.getPriceBase() * multiplier.getPriceMultiplier() * requestedTime;
+    }
+
 
     public FinalPriceDTO returnFinalPrice(UUID facilityId, String lockerModelString, int requestedTime) {
 

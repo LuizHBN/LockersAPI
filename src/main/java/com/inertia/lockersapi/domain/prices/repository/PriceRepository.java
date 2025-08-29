@@ -9,4 +9,5 @@ import java.util.UUID;
 
 public interface PriceRepository extends JpaRepository<Price, UUID> {
     Optional<Price> findByLockerModel(LockerModel lockerModel);
+    Optional<Price> findByFacilityIdAndLockerModel(UUID facilityId, LockerModel lockerModel);
 }
