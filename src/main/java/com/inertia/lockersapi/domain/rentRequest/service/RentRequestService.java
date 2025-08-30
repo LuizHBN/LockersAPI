@@ -6,6 +6,7 @@ import com.inertia.lockersapi.api.controller.dto.request.rentRequest.NewRentRequ
 import com.inertia.lockersapi.api.controller.dto.response.ReadRentRequestDTO;
 import com.inertia.lockersapi.domain.locker.Locker;
 import com.inertia.lockersapi.domain.locker.repository.LockerRepository;
+import com.inertia.lockersapi.domain.prices.service.PriceService;
 import com.inertia.lockersapi.domain.rentRequest.RentRequest;
 import com.inertia.lockersapi.domain.rentRequest.repository.RentRequestRepository;
 import com.inertia.lockersapi.domain.transaction.Transaction;
@@ -22,23 +23,30 @@ public class RentRequestService {
     private final LockerRepository lockerRepository;
     private final RentRequestRepository rentRequestRepository;
     private final TransactionRepository transactionRepository;
+    private final PriceService priceService;
 
-    public RentRequestService(LockerRepository lockerRepository, RentRequestRepository rentRequestRepository,  TransactionRepository transactionRepository) {
+    public RentRequestService(LockerRepository lockerRepository, RentRequestRepository rentRequestRepository, TransactionRepository transactionRepository, PriceService priceService) {
         this.lockerRepository = lockerRepository;
         this.rentRequestRepository = rentRequestRepository;
         this.transactionRepository = transactionRepository;
+        this.priceService = priceService;
     }
 
 
     public ResponseEntity<?> rentLocker(NewRentRequestDTO rentRequestDTO){
         Locker locker = lockerRepository.findById(rentRequestDTO.lockerId())
-                .orElseThrow(() -> new RuntimeException("Locker not found"));
+                .orElseThrow(() -> new IllegalArgumentException("Locker not found"));
 
         if (locker.isFree()) {
             RentRequest rentRequest = new RentRequest(rentRequestDTO);
+
+            rentRequest.setAmount(priceService.calculateFinalPrice(locker.getFacility().getId()
+                    , rentRequest.calculateRentTime()
+                    , locker.getLockerModel()));
+
+            RentRequest savedRentRequest = rentRequestRepository.save(rentRequest);
             locker.setFree(false);
             lockerRepository.save(locker);
-            RentRequest savedRentRequest = rentRequestRepository.save(rentRequest);
             return ResponseEntity.ok( new ReadRentRequestDTO(savedRentRequest));
         }
 

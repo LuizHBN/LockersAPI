@@ -41,8 +41,11 @@ public class RentRequest {
     @Column(name = "rent_finish_date")
     private Date rentFinishDate;
 
+    private double amount;
     @Column
     private UUID openingKey;
+
+
 
     public RentRequest(NewRentRequestDTO requestDTO){
         this.user = new User();
@@ -52,6 +55,7 @@ public class RentRequest {
         this.rentStartDate = requestDTO.rentStartDate();
         this.rentFinishDate = requestDTO.rentFinishDate();
         this.openingKey = UUID.randomUUID();
+
     }
 
     public int calculateRentTime() {
