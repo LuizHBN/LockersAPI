@@ -75,18 +75,18 @@ public class RentRequestService {
     public ResponseEntity<?> findAllRentRequests() {
         List<RentRequest> rentRequests = rentRequestRepository.findAll();
 
-        return ResponseEntity.ok(toRentRequestDTO(rentRequests));
+        return ResponseEntity.ok().body(toRentRequestDTO(rentRequests));
     }
 
     public ResponseEntity<?> findRentRequestByUserId(UUID userId){
         List<RentRequest> rentRequests = rentRequestRepository.findByUserId(userId);
 
-        return ResponseEntity.ok(toRentRequestDTO(rentRequests));
+        return ResponseEntity.ok().body(toRentRequestDTO(rentRequests));
     }
 
     public ResponseEntity<?> findRentRequestById(UUID rentRequestId){
        RentRequest rentRequest = rentRequestRepository.findById(rentRequestId).orElseThrow(() -> new IllegalArgumentException("RentRequest não encontrada!"));;
-        return  ResponseEntity.ok(new ReadRentRequestDTO(rentRequest));
+        return  ResponseEntity.ok().body(new ReadRentRequestDTO(rentRequest));
     }
 
 
