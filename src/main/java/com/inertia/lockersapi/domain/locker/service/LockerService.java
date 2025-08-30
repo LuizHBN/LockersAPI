@@ -52,25 +52,6 @@ public class LockerService {
         }
     }
 
-
-    public ResponseEntity<?> finishRentProcess (NewLockerCheckOutDTO checkOutDTO){
-        RentRequest rentRequest = rentRequestRepository.findById(checkOutDTO.rentRequestId())
-                .orElseThrow(() -> new RuntimeException("Locação não encontrada!"));
-
-        Locker locker = lockerRepository.findById(rentRequest.getLocker().getId())
-                .orElseThrow(() -> new RuntimeException("Locker não encontrado!"));
-
-        locker.setFree(true);
-
-        rentRequest.setRentFinishDate(new Date());
-
-
-        lockerRepository.save(locker);
-        rentRequestRepository.save(rentRequest);
-
-        return ResponseEntity.ok("Check-out realizado com sucesso!");
-    }
-
     public ResponseEntity<?> findAllLockers() {
         List<Locker> lockers = lockerRepository.findAll();
         return ResponseEntity.ok(lockers);

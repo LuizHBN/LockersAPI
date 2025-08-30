@@ -6,7 +6,7 @@ import java.util.UUID;
 
 public record NewLockerCheckOutDTO(
         @NotNull
-        int userId,
+        UUID userId,
         @NotNull
         UUID rentRequestId
 ) {

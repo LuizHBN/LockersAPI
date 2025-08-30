@@ -53,7 +53,7 @@ public class RentRequestService {
         return ResponseEntity.badRequest().body("Locker ocupado!");
     }
 
-    public ResponseEntity<?> finishRentProcess (NewLockerCheckOutDTO checkOutDTO){
+    public ResponseEntity<?>finishRentProcess (NewLockerCheckOutDTO checkOutDTO){
         RentRequest rentRequest = rentRequestRepository.findById(checkOutDTO.rentRequestId())
                 .orElseThrow(() -> new RuntimeException("Locação não encontrada!"));
 

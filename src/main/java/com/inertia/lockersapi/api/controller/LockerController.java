@@ -28,6 +28,7 @@ public class LockerController {
         return lockerService.saveLocker(lockerDTO);
     }
 
+
     @PostMapping("/rent")
     public ResponseEntity<?> rentLocker(@RequestBody @Valid NewRentRequestDTO rentRequestDTO) {
         return lockerService.rentLocker(rentRequestDTO);
