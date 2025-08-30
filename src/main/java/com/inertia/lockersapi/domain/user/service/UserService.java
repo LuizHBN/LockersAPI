@@ -1,10 +1,13 @@
 package com.inertia.lockersapi.domain.user.service;
 
+import com.inertia.lockersapi.api.controller.dto.request.user.LoginUserDTO;
 import com.inertia.lockersapi.api.controller.dto.request.user.NewUserDTO;
 import com.inertia.lockersapi.api.controller.dto.response.ReadUserDTO;
+import com.inertia.lockersapi.api.controller.dto.response.ReadUserLoginDTO;
 import com.inertia.lockersapi.domain.user.User;
 import com.inertia.lockersapi.domain.user.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
@@ -26,6 +29,31 @@ public class UserService {
         userRepository.save(user);
         return ResponseEntity.ok(new ReadUserDTO(user));
     }
+    public Optional<User> findByEmail(String email) {
+        return userRepository.findByEmail(email);
+    }
+
+    public ResponseEntity<?> validateLogin(LoginUserDTO loginUserDTO) {
+        Optional<User> userOpt = findByEmail(loginUserDTO.email());
+
+        if (userOpt.isEmpty()) {
+            // Email não cadastrado
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
+                    .body("Email ou senha inválidos");
+        }
+
+        User user = userOpt.get();
+
+        // Verifica a senha
+        if (!user.getPassword().equals(loginUserDTO.password())) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
+                    .body("Email ou senha inválidos");
+        }
+
+        // Login válido
+        return ResponseEntity.ok(new ReadUserLoginDTO(user));
+    }
+
 
     public ResponseEntity<?> findAllUsers() {
         List<User> users = userRepository.findAll();

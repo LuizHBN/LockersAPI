@@ -1,6 +1,7 @@
 package com.inertia.lockersapi.api.controller;
 
 
+import com.inertia.lockersapi.api.controller.dto.request.user.LoginUserDTO;
 import com.inertia.lockersapi.api.controller.dto.request.user.NewUserDTO;
 import com.inertia.lockersapi.domain.user.service.UserService;
 import jakarta.validation.Valid;
@@ -34,6 +35,10 @@ public class UserController {
     @GetMapping("{id}")
     public ResponseEntity<?> getUserById(@PathVariable UUID id) {
         return ResponseEntity.ok(userService.findUserById(id));
+    }
+    @PostMapping("/login")
+    public ResponseEntity<?> login(@RequestBody @Valid LoginUserDTO UserDTO){
+        return userService.validateLogin(UserDTO);
     }
 
 
