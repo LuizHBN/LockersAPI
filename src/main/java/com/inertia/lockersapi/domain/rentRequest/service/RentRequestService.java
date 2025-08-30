@@ -85,7 +85,8 @@ public class RentRequestService {
     }
 
     public ResponseEntity<?> findRentRequestById(UUID rentRequestId){
-        return  ResponseEntity.ok(rentRequestRepository.findById(rentRequestId));
+       RentRequest rentRequest = rentRequestRepository.findById(rentRequestId).orElseThrow(() -> new IllegalArgumentException("RentRequest não encontrada!"));;
+        return  ResponseEntity.ok(new ReadRentRequestDTO(rentRequest));
     }
 
 
