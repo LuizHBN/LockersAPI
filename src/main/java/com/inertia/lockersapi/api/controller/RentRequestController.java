@@ -45,7 +45,7 @@ public class RentRequestController {
     }
     @GetMapping("/{rentRequestId}")
     public ResponseEntity<?> getRentRequestById(@PathVariable UUID rentRequestId){
-        return rentRequestService.findRentRequestByUserId(rentRequestId);
+        return rentRequestService.findRentRequestById(rentRequestId);
     }
 
 
