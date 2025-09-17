@@ -1,3 +1,4 @@
+
 package com.inertia.lockersapi.api.infra.security;
 
 import org.springframework.context.annotation.Bean;
@@ -27,7 +28,15 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        return http.sessionManagement(sm -> sm.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+        return http
+                .authorizeHttpRequests(
+                        req -> {
+                            req.requestMatchers("/login").permitAll();
+                            req.requestMatchers("/refresh-token").permitAll();
+                            req.anyRequest().authenticated();
+                        }
+                )
+                .sessionManagement(sm -> sm.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .csrf(csrf -> csrf.disable())
                 .addFilterBefore(accessTokenFilter, UsernamePasswordAuthenticationFilter.class).build();
 

@@ -30,6 +30,18 @@ public class TokenService {
         }
     }
 
+    public String createRefreshToken(User user) {
+        try {
+            Algorithm algorithm = Algorithm.HMAC256("12345678");
+            return JWT.create()
+                    .withIssuer("InertiaLocker")
+                    .withSubject(user.getId().toString())
+                    .withExpiresAt(expires(120))
+                    .sign(algorithm);
+        } catch (JWTCreationException exception){
+            throw new JWTCreationException("Not possible to create JWT", exception);
+        }
+    }
     public String verifyToken(String token) {
         DecodedJWT decodedJWT;
         try {
@@ -48,4 +60,6 @@ public class TokenService {
     private Instant expires(Integer minutes) {
         return LocalDateTime.now().plusMinutes(minutes).toInstant(ZoneOffset.of("-03:00"));
     }
+
+
 }
