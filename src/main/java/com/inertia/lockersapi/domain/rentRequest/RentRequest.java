@@ -26,7 +26,7 @@ public class RentRequest {
     @GeneratedValue
     private UUID id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "locker_id")
     private Locker locker;
 
