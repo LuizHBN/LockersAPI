@@ -6,7 +6,7 @@ import com.inertia.lockersapi.domain.locker.Locker;
 import java.util.UUID;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
 
-public record ReadLockerDTO(UUID id, ReadFacilityDTO facilityDTO, String alias, String lockerModel) {
+public record ReadLockerDTO(UUID id, ReadFacilityDTO facility, String alias, String lockerModel) {
 
     public ReadLockerDTO( Locker locker){
         this(
