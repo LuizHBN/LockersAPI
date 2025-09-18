@@ -32,6 +32,11 @@ public class UserService implements UserDetailsService {
     }
 
     public ResponseEntity<?> saveUser(NewUserDTO userDTO) {
+        if (userRepository.findByEmailIgnoreCase(userDTO.email()).isPresent()) {
+            return new ResponseEntity<>(HttpStatus.CONFLICT);
+        }
+
+
         var encryptPassword = passwordEncoder.encode(userDTO.password());
 
         User user = new User(userDTO, encryptPassword);

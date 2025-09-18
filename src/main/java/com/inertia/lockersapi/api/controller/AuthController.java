@@ -34,8 +34,8 @@ public class AuthController {
 
     @PostMapping("/api/login")
     public ResponseEntity<TokensDTO> login(@Valid @RequestBody DadosLoginDTO dadosLoginDTO){
-        var autenticationToker = new UsernamePasswordAuthenticationToken(dadosLoginDTO.email(), dadosLoginDTO.password());
-        var authentication = authenticationManager.authenticate(autenticationToker);
+        var authenticationToken = new UsernamePasswordAuthenticationToken(dadosLoginDTO.email(), dadosLoginDTO.password());
+        var authentication = authenticationManager.authenticate(authenticationToken);
 
         String accessToken = tokenService.createToken((User)authentication.getPrincipal());
         String refreshToken = tokenService.createRefreshToken((User)authentication.getPrincipal());
