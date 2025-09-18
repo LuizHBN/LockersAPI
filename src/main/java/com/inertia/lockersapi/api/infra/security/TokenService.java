@@ -9,19 +9,19 @@ import com.auth0.jwt.interfaces.DecodedJWT;
 import com.inertia.lockersapi.domain.user.User;
 import org.springframework.stereotype.Service;
 
-import java.time.Instant;
-import java.time.LocalDateTime;
-import java.time.ZoneOffset;
+import java.time.*;
 import java.util.Date;
 
 @Service
 public class TokenService {
+    private static final String SECRET = "12345678";
+    private static final String ISSUER = "InertiaLocker";
 
     public String createToken(User user) {
         try {
-            Algorithm algorithm = Algorithm.HMAC256("12345678");
+            Algorithm algorithm = Algorithm.HMAC256(SECRET);
             return JWT.create()
-                    .withIssuer("InertiaLocker")
+                    .withIssuer(ISSUER)
                     .withSubject(user.getUsername())
                     .withExpiresAt(expires(30))
                     .sign(algorithm);
@@ -32,9 +32,9 @@ public class TokenService {
 
     public String createRefreshToken(User user) {
         try {
-            Algorithm algorithm = Algorithm.HMAC256("12345678");
+            Algorithm algorithm = Algorithm.HMAC256(SECRET);
             return JWT.create()
-                    .withIssuer("InertiaLocker")
+                    .withIssuer(ISSUER)
                     .withSubject(user.getId().toString())
                     .withExpiresAt(expires(120))
                     .sign(algorithm);
@@ -44,10 +44,11 @@ public class TokenService {
     }
     public String verifyToken(String token) {
         DecodedJWT decodedJWT;
+
         try {
-            Algorithm algorithm = Algorithm.HMAC256("12345678");
+            Algorithm algorithm = Algorithm.HMAC256(SECRET);
             JWTVerifier verifier = JWT.require(algorithm)
-                    .withIssuer("InertiaLocker")
+                    .withIssuer(ISSUER)
                     .build();
 
             decodedJWT = verifier.verify(token);
@@ -57,9 +58,31 @@ public class TokenService {
         }
     }
 
+    public ZonedDateTime getExpirationDateTime (String token) {
+        try {
+            DecodedJWT decodedJWT = decode(token);
+
+            Date expirationDate = decodedJWT.getExpiresAt();
+            Instant expirationInstant = expirationDate.toInstant();
+
+            return expirationInstant.atZone(ZoneId.of("America/Sao_Paulo"));
+        } catch (JWTVerificationException exception){
+            throw new JWTVerificationException("Not possible to verify token", exception);
+        }
+    }
+
     private Instant expires(Integer minutes) {
         return LocalDateTime.now().plusMinutes(minutes).toInstant(ZoneOffset.of("-03:00"));
     }
 
+
+    private DecodedJWT decode (String token) {
+        Algorithm algorithm = Algorithm.HMAC256(SECRET);
+
+        return JWT.require(algorithm)
+                .withIssuer(ISSUER)
+                .build()
+                .verify(token);
+    }
 
 }

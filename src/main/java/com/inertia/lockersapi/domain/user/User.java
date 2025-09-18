@@ -33,11 +33,11 @@ public class User implements UserDetails {
     private String phone;
     private String cpf;
 
-    public User(NewUserDTO newUserDTO) {
+    public User(NewUserDTO newUserDTO, String encryptPassword) {
         this.name = newUserDTO.name();
         this.lastName = newUserDTO.lastName();
         this.email = newUserDTO.email();
-        this.password = newUserDTO.password();
+        this.password = encryptPassword;
         this.phone = newUserDTO.phone();
         this.cpf = newUserDTO.cpf();
     }
